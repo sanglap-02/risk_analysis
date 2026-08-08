@@ -22,8 +22,8 @@ modelling tables match published row counts exactly, 23 checks passed /
 |---|---|---|
 | 0 | Setup & rehearsal | **done** |
 | 1 | Ingestion → Bronze | **done** |
-| 2 | Cleaning & QA → Silver | next |
-| 3 | Population & target definition | not started |
+| 2 | Cleaning & QA → Silver | **code complete, ready to run** |
+| 3 | Population & target definition | next |
 | 4 | Feature engineering | not started |
 | 5 | ABT & splits | not started |
 | 6 | EDA | not started |
@@ -44,14 +44,16 @@ modelling tables match published row counts exactly, 23 checks passed /
 ├── plans.md                     Design document — read this first
 ├── src/credit_risk/
 │   ├── config.py                Every constant that governs the model
-│   └── schemas.py               Bronze schema inference, overrides, persistence
+│   ├── schemas.py               Bronze schema inference, overrides, persistence
+│   └── cleaning.py              Bronze → silver cleaning decisions (pure Python)
 ├── scripts/                     Local, run before touching Databricks
 │   ├── download_data.py         Fetch + extract from Kaggle
 │   ├── generate_schemas.py      Full-file type inference → schemas/*.json
 │   └── verify_raw.py            Data-quality gate on the raw extract
 ├── notebooks/                   Databricks notebooks, run in order
 │   ├── 00_config.py             Bootstrap: catalog, schemas, volume, constants
-│   └── 01_ingest_bronze.py      Ingestion layer
+│   ├── 01_ingest_bronze.py      Ingestion layer
+│   └── 02_clean_silver.py       Sentinels, alignment, pooled panel
 ├── schemas/                     Committed Spark schemas (build artefact)
 ├── data/
 │   ├── raw/                     Downloaded CSVs (gitignored)
