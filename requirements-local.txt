@@ -1,0 +1,6 @@
+# Local environment: download, schema generation and raw verification only.
+# The modelling libraries are NOT here on purpose -- they run on Databricks,
+# where the runtime pins compatible versions. See requirements-databricks.txt.
+kaggle>=1.6
+pandas>=2.2
+pyarrow>=16

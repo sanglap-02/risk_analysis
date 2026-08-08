@@ -1,0 +1,36 @@
+# Data — never committed. Regenerate with scripts/download_data.py
+data/raw/
+*.csv
+*.zip
+
+# Manifests ARE committed: they are the reproducibility record for a dataset
+# we cannot check in. Row counts, SHA-256 digests and null profiles let anyone
+# confirm they are working from the same extract.
+!data/manifests/*.json
+
+# Environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Notebook / editor cruft
+.ipynb_checkpoints/
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets — none of these may ever land in the repo
+kaggle.json
+access_token
+access_token.txt
+.env
+info.txt
+*.secret
+*credentials*
+
+# Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

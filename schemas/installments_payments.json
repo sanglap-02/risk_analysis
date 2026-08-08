@@ -1,0 +1,85 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_PREV",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_ID_CURR",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "NUM_INSTALMENT_VERSION",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NUM_INSTALMENT_"
+      }
+    },
+    {
+      "name": "NUM_INSTALMENT_NUMBER",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "DAYS_INSTALMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_ENTRY_PAYMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "AMT_INSTALMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_PAYMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    }
+  ]
+}

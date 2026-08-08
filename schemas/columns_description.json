@@ -1,0 +1,55 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "Table",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "Row",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "binary",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "Special",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    }
+  ]
+}

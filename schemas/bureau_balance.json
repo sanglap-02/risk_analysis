@@ -1,0 +1,35 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_BUREAU",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "MONTHS_BALANCE",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "STATUS",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    }
+  ]
+}

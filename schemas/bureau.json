@@ -1,0 +1,175 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_CURR",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_ID_BUREAU",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "CREDIT_ACTIVE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CREDIT_CURRENCY",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "DAYS_CREDIT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "CREDIT_DAY_OVERDUE",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "DAYS_CREDIT_ENDDATE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_ENDDATE_FACT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT_MAX_OVERDUE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "CNT_CREDIT_PROLONG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT_SUM",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT_SUM_DEBT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT_SUM_LIMIT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT_SUM_OVERDUE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "CREDIT_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "DAYS_CREDIT_UPDATE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "AMT_ANNUITY",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    }
+  ]
+}

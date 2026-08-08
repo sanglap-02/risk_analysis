@@ -1,0 +1,85 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_PREV",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_ID_CURR",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "MONTHS_BALANCE",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "CNT_INSTALMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "CNT_INSTALMENT_FUTURE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "NAME_CONTRACT_STATUS",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "SK_DPD",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_DPD_DEF",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    }
+  ]
+}

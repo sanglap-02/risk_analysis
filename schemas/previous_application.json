@@ -1,0 +1,375 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_PREV",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_ID_CURR",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "NAME_CONTRACT_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "AMT_ANNUITY",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_APPLICATION",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_DOWN_PAYMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_GOODS_PRICE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "WEEKDAY_APPR_PROCESS_START",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "HOUR_APPR_PROCESS_START",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "FLAG_LAST_APPL_PER_CONTRACT",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NFLAG_LAST_APPL_IN_DAY",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "RATE_DOWN_PAYMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:RATE_"
+      }
+    },
+    {
+      "name": "RATE_INTEREST_PRIMARY",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:RATE_"
+      }
+    },
+    {
+      "name": "RATE_INTEREST_PRIVILEGED",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:RATE_"
+      }
+    },
+    {
+      "name": "NAME_CASH_LOAN_PURPOSE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_CONTRACT_STATUS",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "DAYS_DECISION",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "NAME_PAYMENT_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CODE_REJECT_REASON",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_TYPE_SUITE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_CLIENT_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_GOODS_CATEGORY",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_PORTFOLIO",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_PRODUCT_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CHANNEL_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "SELLERPLACE_AREA",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_SELLER_INDUSTRY",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CNT_PAYMENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "NAME_YIELD_GROUP",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "PRODUCT_COMBINATION",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "DAYS_FIRST_DRAWING",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_FIRST_DUE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_LAST_DUE_1ST_VERSION",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_LAST_DUE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_TERMINATION",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "NFLAG_INSURED_ON_APPROVAL",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "inferred"
+      }
+    }
+  ]
+}

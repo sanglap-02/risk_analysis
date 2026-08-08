@@ -1,0 +1,243 @@
+{
+  "generated_at": "2026-08-08T01:57:52.364434+00:00",
+  "n_pass": 23,
+  "n_warn": 9,
+  "n_fail": 0,
+  "findings": [
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "application_train",
+      "detail": "307,511 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "application_test",
+      "detail": "48,744 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "bureau",
+      "detail": "1,716,428 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "bureau_balance",
+      "detail": "27,299,925 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "credit_card_balance",
+      "detail": "3,840,312 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "pos_cash_balance",
+      "detail": "10,001,358 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "installments_payments",
+      "detail": "13,605,401 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "previous_application",
+      "detail": "1,670,214 rows, matches reference"
+    },
+    {
+      "status": "PASS",
+      "check": "row-count",
+      "target": "columns_description",
+      "detail": "219 rows (no reference)"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "application_train(SK_ID_CURR)",
+      "detail": "unique across 307,511 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "application_test(SK_ID_CURR)",
+      "detail": "unique across 48,744 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "bureau(SK_ID_BUREAU)",
+      "detail": "unique across 1,716,428 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "bureau_balance(SK_ID_BUREAU, MONTHS_BALANCE)",
+      "detail": "unique across 27,299,925 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "credit_card_balance(SK_ID_PREV, MONTHS_BALANCE)",
+      "detail": "unique across 3,840,312 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "pos_cash_balance(SK_ID_PREV, MONTHS_BALANCE)",
+      "detail": "unique across 10,001,358 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "installments_payments",
+      "detail": "no natural key claimed; uniqueness asserted downstream"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "previous_application(SK_ID_PREV)",
+      "detail": "unique across 1,670,214 rows"
+    },
+    {
+      "status": "PASS",
+      "check": "key-uniqueness",
+      "target": "columns_description",
+      "detail": "no natural key claimed; uniqueness asserted downstream"
+    },
+    {
+      "status": "WARN",
+      "check": "referential",
+      "target": "bureau_balance.SK_ID_BUREAU -> bureau.SK_ID_BUREAU",
+      "detail": "unmatched but within tolerance for a sampled parent -- 43,041 of 817,395 distinct ids (5.3%), 3,120,184 of 27,299,925 rows (11.4%)",
+      "n_orphan_rows": 3120184,
+      "n_orphan_ids": 43041,
+      "n_child_ids": 817395,
+      "orphan_rate_distinct": 0.0527
+    },
+    {
+      "status": "WARN",
+      "check": "referential",
+      "target": "bureau.SK_ID_CURR -> application_train.SK_ID_CURR",
+      "detail": "unmatched but within tolerance for a sampled parent -- 42,320 of 305,811 distinct ids (13.8%), 251,103 of 1,716,428 rows (14.6%)",
+      "n_orphan_rows": 251103,
+      "n_orphan_ids": 42320,
+      "n_child_ids": 305811,
+      "orphan_rate_distinct": 0.1384
+    },
+    {
+      "status": "WARN",
+      "check": "referential",
+      "target": "credit_card_balance.SK_ID_PREV -> previous_application.SK_ID_PREV",
+      "detail": "unmatched but within tolerance for a sampled parent -- 11,372 of 104,307 distinct ids (10.9%), 1,082,816 of 3,840,312 rows (28.2%)",
+      "n_orphan_rows": 1082816,
+      "n_orphan_ids": 11372,
+      "n_child_ids": 104307,
+      "orphan_rate_distinct": 0.109
+    },
+    {
+      "status": "WARN",
+      "check": "referential",
+      "target": "pos_cash_balance.SK_ID_PREV -> previous_application.SK_ID_PREV",
+      "detail": "unmatched but within tolerance for a sampled parent -- 37,422 of 936,325 distinct ids (4.0%), 340,561 of 10,001,358 rows (3.4%)",
+      "n_orphan_rows": 340561,
+      "n_orphan_ids": 37422,
+      "n_child_ids": 936325,
+      "orphan_rate_distinct": 0.04
+    },
+    {
+      "status": "WARN",
+      "check": "referential",
+      "target": "installments_payments.SK_ID_PREV -> previous_application.SK_ID_PREV",
+      "detail": "unmatched but within tolerance for a sampled parent -- 38,847 of 997,752 distinct ids (3.9%), 1,250,826 of 13,605,401 rows (9.2%)",
+      "n_orphan_rows": 1250826,
+      "n_orphan_ids": 38847,
+      "n_child_ids": 997752,
+      "orphan_rate_distinct": 0.0389
+    },
+    {
+      "status": "WARN",
+      "check": "referential",
+      "target": "previous_application.SK_ID_CURR -> application_train.SK_ID_CURR",
+      "detail": "unmatched but within tolerance for a sampled parent -- 47,800 of 338,857 distinct ids (14.1%), 256,513 of 1,670,214 rows (15.4%)",
+      "n_orphan_rows": 256513,
+      "n_orphan_ids": 47800,
+      "n_child_ids": 338857,
+      "orphan_rate_distinct": 0.1411
+    },
+    {
+      "status": "PASS",
+      "check": "panel-index",
+      "target": "bureau_balance.MONTHS_BALANCE",
+      "detail": "range [-96, 0], all negative offsets",
+      "min": -96,
+      "max": 0
+    },
+    {
+      "status": "PASS",
+      "check": "panel-index",
+      "target": "credit_card_balance.MONTHS_BALANCE",
+      "detail": "range [-96, -1], all negative offsets",
+      "min": -96,
+      "max": -1
+    },
+    {
+      "status": "PASS",
+      "check": "panel-index",
+      "target": "pos_cash_balance.MONTHS_BALANCE",
+      "detail": "range [-96, -1], all negative offsets",
+      "min": -96,
+      "max": -1
+    },
+    {
+      "status": "WARN",
+      "check": "days-sentinel",
+      "target": "application_train",
+      "detail": "365243 present -- DAYS_EMPLOYED=55,374",
+      "columns": {
+        "DAYS_EMPLOYED": 55374
+      }
+    },
+    {
+      "status": "WARN",
+      "check": "days-sentinel",
+      "target": "application_test",
+      "detail": "365243 present -- DAYS_EMPLOYED=9,274",
+      "columns": {
+        "DAYS_EMPLOYED": 9274
+      }
+    },
+    {
+      "status": "PASS",
+      "check": "days-sentinel",
+      "target": "bureau",
+      "detail": "no 365243 values"
+    },
+    {
+      "status": "PASS",
+      "check": "days-sentinel",
+      "target": "installments_payments",
+      "detail": "no 365243 values"
+    },
+    {
+      "status": "WARN",
+      "check": "days-sentinel",
+      "target": "previous_application",
+      "detail": "365243 present -- DAYS_FIRST_DRAWING=934,444, DAYS_TERMINATION=225,913, DAYS_LAST_DUE=211,221, DAYS_LAST_DUE_1ST_VERSION=93,864, DAYS_FIRST_DUE=40,645",
+      "columns": {
+        "DAYS_FIRST_DRAWING": 934444,
+        "DAYS_FIRST_DUE": 40645,
+        "DAYS_LAST_DUE_1ST_VERSION": 93864,
+        "DAYS_LAST_DUE": 211221,
+        "DAYS_TERMINATION": 225913
+      }
+    }
+  ]
+}

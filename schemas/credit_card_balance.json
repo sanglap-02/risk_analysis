@@ -1,0 +1,235 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_PREV",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_ID_CURR",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "MONTHS_BALANCE",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "AMT_BALANCE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT_LIMIT_ACTUAL",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_DRAWINGS_ATM_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_DRAWINGS_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_DRAWINGS_OTHER_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_DRAWINGS_POS_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_INST_MIN_REGULARITY",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_PAYMENT_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_PAYMENT_TOTAL_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_RECEIVABLE_PRINCIPAL",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_RECIVABLE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_TOTAL_RECEIVABLE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "CNT_DRAWINGS_ATM_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "CNT_DRAWINGS_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "CNT_DRAWINGS_OTHER_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "CNT_DRAWINGS_POS_CURRENT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "CNT_INSTALMENT_MATURE_CUM",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "NAME_CONTRACT_STATUS",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "SK_DPD",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "SK_DPD_DEF",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1225 @@
+{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "SK_ID_CURR",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "TARGET",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "NAME_CONTRACT_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CODE_GENDER",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_OWN_CAR",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_OWN_REALTY",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CNT_CHILDREN",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "AMT_INCOME_TOTAL",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_CREDIT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_ANNUITY",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_GOODS_PRICE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "NAME_TYPE_SUITE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_INCOME_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_EDUCATION_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_FAMILY_STATUS",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "NAME_HOUSING_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "REGION_POPULATION_RELATIVE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "DAYS_BIRTH",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_EMPLOYED",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_REGISTRATION",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "DAYS_ID_PUBLISH",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "OWN_CAR_AGE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_MOBIL",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_EMP_PHONE",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_WORK_PHONE",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_CONT_MOBILE",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_PHONE",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_EMAIL",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "OCCUPATION_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "CNT_FAM_MEMBERS",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:CNT_"
+      }
+    },
+    {
+      "name": "REGION_RATING_CLIENT",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "REGION_RATING_CLIENT_W_CITY",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "WEEKDAY_APPR_PROCESS_START",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "HOUR_APPR_PROCESS_START",
+      "type": "integer",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "exact-override"
+      }
+    },
+    {
+      "name": "REG_REGION_NOT_LIVE_REGION",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "REG_REGION_NOT_WORK_REGION",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "LIVE_REGION_NOT_WORK_REGION",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "REG_CITY_NOT_LIVE_CITY",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "REG_CITY_NOT_WORK_CITY",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "LIVE_CITY_NOT_WORK_CITY",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "ORGANIZATION_TYPE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "EXT_SOURCE_1",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:EXT_SOURCE_"
+      }
+    },
+    {
+      "name": "EXT_SOURCE_2",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:EXT_SOURCE_"
+      }
+    },
+    {
+      "name": "EXT_SOURCE_3",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:EXT_SOURCE_"
+      }
+    },
+    {
+      "name": "APARTMENTS_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:APARTMENTS_"
+      }
+    },
+    {
+      "name": "BASEMENTAREA_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:BASEMENTAREA_"
+      }
+    },
+    {
+      "name": "YEARS_BEGINEXPLUATATION_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:YEARS_"
+      }
+    },
+    {
+      "name": "YEARS_BUILD_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:YEARS_"
+      }
+    },
+    {
+      "name": "COMMONAREA_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:COMMONAREA_"
+      }
+    },
+    {
+      "name": "ELEVATORS_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:ELEVATORS_"
+      }
+    },
+    {
+      "name": "ENTRANCES_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:ENTRANCES_"
+      }
+    },
+    {
+      "name": "FLOORSMAX_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:FLOORSMAX_"
+      }
+    },
+    {
+      "name": "FLOORSMIN_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:FLOORSMIN_"
+      }
+    },
+    {
+      "name": "LANDAREA_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LANDAREA_"
+      }
+    },
+    {
+      "name": "LIVINGAPARTMENTS_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LIVINGAPARTMENTS_"
+      }
+    },
+    {
+      "name": "LIVINGAREA_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LIVINGAREA_"
+      }
+    },
+    {
+      "name": "NONLIVINGAPARTMENTS_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NONLIVINGAPARTMENTS_"
+      }
+    },
+    {
+      "name": "NONLIVINGAREA_AVG",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NONLIVINGAREA_"
+      }
+    },
+    {
+      "name": "APARTMENTS_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:APARTMENTS_"
+      }
+    },
+    {
+      "name": "BASEMENTAREA_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:BASEMENTAREA_"
+      }
+    },
+    {
+      "name": "YEARS_BEGINEXPLUATATION_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:YEARS_"
+      }
+    },
+    {
+      "name": "YEARS_BUILD_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:YEARS_"
+      }
+    },
+    {
+      "name": "COMMONAREA_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:COMMONAREA_"
+      }
+    },
+    {
+      "name": "ELEVATORS_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:ELEVATORS_"
+      }
+    },
+    {
+      "name": "ENTRANCES_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:ENTRANCES_"
+      }
+    },
+    {
+      "name": "FLOORSMAX_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:FLOORSMAX_"
+      }
+    },
+    {
+      "name": "FLOORSMIN_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:FLOORSMIN_"
+      }
+    },
+    {
+      "name": "LANDAREA_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LANDAREA_"
+      }
+    },
+    {
+      "name": "LIVINGAPARTMENTS_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LIVINGAPARTMENTS_"
+      }
+    },
+    {
+      "name": "LIVINGAREA_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LIVINGAREA_"
+      }
+    },
+    {
+      "name": "NONLIVINGAPARTMENTS_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NONLIVINGAPARTMENTS_"
+      }
+    },
+    {
+      "name": "NONLIVINGAREA_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NONLIVINGAREA_"
+      }
+    },
+    {
+      "name": "APARTMENTS_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:APARTMENTS_"
+      }
+    },
+    {
+      "name": "BASEMENTAREA_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:BASEMENTAREA_"
+      }
+    },
+    {
+      "name": "YEARS_BEGINEXPLUATATION_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:YEARS_"
+      }
+    },
+    {
+      "name": "YEARS_BUILD_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:YEARS_"
+      }
+    },
+    {
+      "name": "COMMONAREA_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:COMMONAREA_"
+      }
+    },
+    {
+      "name": "ELEVATORS_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:ELEVATORS_"
+      }
+    },
+    {
+      "name": "ENTRANCES_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:ENTRANCES_"
+      }
+    },
+    {
+      "name": "FLOORSMAX_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:FLOORSMAX_"
+      }
+    },
+    {
+      "name": "FLOORSMIN_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:FLOORSMIN_"
+      }
+    },
+    {
+      "name": "LANDAREA_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LANDAREA_"
+      }
+    },
+    {
+      "name": "LIVINGAPARTMENTS_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LIVINGAPARTMENTS_"
+      }
+    },
+    {
+      "name": "LIVINGAREA_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:LIVINGAREA_"
+      }
+    },
+    {
+      "name": "NONLIVINGAPARTMENTS_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NONLIVINGAPARTMENTS_"
+      }
+    },
+    {
+      "name": "NONLIVINGAREA_MEDI",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:NONLIVINGAREA_"
+      }
+    },
+    {
+      "name": "FONDKAPREMONT_MODE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "HOUSETYPE_MODE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "TOTALAREA_MODE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:TOTALAREA_"
+      }
+    },
+    {
+      "name": "WALLSMATERIAL_MODE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "EMERGENCYSTATE_MODE",
+      "type": "string",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "string",
+        "inferred_type": "string",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "OBS_30_CNT_SOCIAL_CIRCLE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:OBS_"
+      }
+    },
+    {
+      "name": "DEF_30_CNT_SOCIAL_CIRCLE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DEF_"
+      }
+    },
+    {
+      "name": "OBS_60_CNT_SOCIAL_CIRCLE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:OBS_"
+      }
+    },
+    {
+      "name": "DEF_60_CNT_SOCIAL_CIRCLE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DEF_"
+      }
+    },
+    {
+      "name": "DAYS_LAST_PHONE_CHANGE",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:DAYS_"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_2",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_3",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_4",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_5",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_6",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_7",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_8",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_9",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_10",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_11",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_12",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_13",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_14",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_15",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_16",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_17",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_18",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_19",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_20",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "FLAG_DOCUMENT_21",
+      "type": "long",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "int64",
+        "inferred_type": "long",
+        "type_source": "inferred"
+      }
+    },
+    {
+      "name": "AMT_REQ_CREDIT_BUREAU_HOUR",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_REQ_CREDIT_BUREAU_DAY",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_REQ_CREDIT_BUREAU_WEEK",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_REQ_CREDIT_BUREAU_MON",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_REQ_CREDIT_BUREAU_QRT",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    },
+    {
+      "name": "AMT_REQ_CREDIT_BUREAU_YEAR",
+      "type": "double",
+      "nullable": true,
+      "metadata": {
+        "arrow_type": "double",
+        "inferred_type": "double",
+        "type_source": "prefix-override:AMT_"
+      }
+    }
+  ]
+}

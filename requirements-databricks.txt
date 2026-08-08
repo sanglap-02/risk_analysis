@@ -1,0 +1,30 @@
+# Installed inside Databricks notebooks with:
+#     %pip install -r ../requirements-databricks.txt
+#     dbutils.library.restartPython()
+#
+# Not installed locally. This project's local Python is 3.14, and several of
+# these do not yet publish 3.14 wheels; the Databricks runtime supplies a
+# supported interpreter. Keeping the two requirement files separate stops a
+# local install attempt from looking like a project failure.
+
+# Binning, WOE/IV, scorecard scaling
+optbinning>=0.19
+scorecardpy>=0.1.9.6
+
+# Champion model + inference statistics (p-values, which sklearn does not give)
+statsmodels>=0.14
+scikit-learn>=1.4
+
+# Challenger model
+lightgbm>=4.3
+xgboost>=2.0
+
+# Explainability
+shap>=0.45
+
+# Strategy tree visualisation
+dtreeviz>=2.2
+
+# Plotting
+matplotlib>=3.8
+seaborn>=0.13
