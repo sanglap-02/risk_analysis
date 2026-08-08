@@ -171,9 +171,15 @@ The work is split across two places, and the order matters:
 | 4.6 Run `01_ingest_bronze.py` | **web UI** |
 | 4.7 Verify | web UI (SQL) |
 
-Free Edition restricts outbound internet to a limited set of trusted domains, so
-you **cannot** download from Kaggle inside a notebook. The data has to be pushed
-up from the machine that downloaded it.
+Two Free Edition constraints shape how the notebooks are written:
+
+- **Outbound internet is restricted to a limited set of trusted domains**, so you
+  **cannot** download from Kaggle inside a notebook. The data has to be pushed up
+  from the machine that downloaded it.
+- **Serverless compute rejects `.cache()` and `.persist()`**
+  (`NOT_SUPPORTED_WITH_SERVERLESS: PERSIST TABLE`). Where a notebook needs many
+  counts over one derived frame, compute them in a single `agg()` rather than
+  caching and counting repeatedly — that is both compatible and faster.
 
 ---
 
