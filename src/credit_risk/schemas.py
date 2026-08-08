@@ -32,6 +32,7 @@ reproducible.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -171,25 +172,68 @@ def resolve_type(column: str, inferred: str) -> tuple[str, str]:
     return inferred, "inferred"
 
 
+# --------------------------------------------------------------------------- #
+# Column name sanitisation
+# --------------------------------------------------------------------------- #
+# Unity Catalog rejects column names that are empty or contain spaces, periods,
+# forward slashes or control characters. Parquet additionally dislikes a handful
+# of others. Source CSVs do not care about any of this:
+# HomeCredit_columns_description.csv ships an unnamed index column, whose header
+# is the empty string -- which UC refuses with
+#   "At columns.0: name "" is not a valid name"
+#
+# Sanitising here rather than at read time means the committed schema is already
+# a valid target schema, so what the repo asserts and what lands in the
+# lakehouse cannot disagree. The original header is preserved in field metadata
+# so the mapping back to the source file is never lost.
+
+_INVALID_COLUMN_CHARS = re.compile(r"[ ,;{}()\n\t=./\\\x00-\x1f]")
+
+
+def sanitise_column_name(name: str, position: int) -> str:
+    """Return a Unity-Catalog-safe column name.
+
+    Empty or whitespace-only headers become `col_<position>`; illegal characters
+    become underscores. Leading underscores are preserved -- they are meaningful
+    for the bronze metadata columns.
+    """
+    cleaned = _INVALID_COLUMN_CHARS.sub("_", (name or "").strip())
+    return cleaned if cleaned.strip("_") else f"col_{position}"
+
+
 def build_struct_field(
-    column: str, arrow_type: str, *, nullable: bool = True
+    column: str, arrow_type: str, *, position: int = 0, nullable: bool = True
 ) -> dict[str, Any]:
     """Build one Spark StructType JSON field dict, with provenance in metadata.
 
     `arrow_type` is pyarrow's inferred type name; it is mapped to a Spark type
-    first, then the override rules get the final say.
+    first, then the override rules get the final say. The column name is
+    sanitised for Unity Catalog, with the original header kept in metadata.
     """
+    safe_name = sanitise_column_name(column, position)
     inferred = arrow_type_to_spark(arrow_type)
-    final_type, reason = resolve_type(column, inferred)
+    # Overrides key off the SANITISED name, because that is the name the column
+    # actually has in the lakehouse and the one every downstream notebook will
+    # reference. A source header of "AMT BALANCE" becomes AMT_BALANCE and should
+    # pick up the AMT_ rule; keying off the raw header would silently miss it.
+    final_type, reason = resolve_type(safe_name, inferred)
+
+    metadata: dict[str, Any] = {
+        "arrow_type": arrow_type,
+        "inferred_type": inferred,
+        "type_source": reason,
+    }
+    if safe_name != column:
+        metadata["source_column"] = column
+        metadata["renamed_reason"] = (
+            "empty header" if not (column or "").strip() else "illegal characters"
+        )
+
     return {
-        "name": column,
+        "name": safe_name,
         "type": final_type,
         "nullable": nullable,
-        "metadata": {
-            "arrow_type": arrow_type,
-            "inferred_type": inferred,
-            "type_source": reason,
-        },
+        "metadata": metadata,
     }
 
 
@@ -197,7 +241,10 @@ def build_struct_schema(columns: dict[str, str]) -> dict[str, Any]:
     """Build a full Spark StructType JSON dict from {column: arrow_type_name}."""
     return {
         "type": "struct",
-        "fields": [build_struct_field(col, typ) for col, typ in columns.items()],
+        "fields": [
+            build_struct_field(col, typ, position=i)
+            for i, (col, typ) in enumerate(columns.items())
+        ],
     }
 
 

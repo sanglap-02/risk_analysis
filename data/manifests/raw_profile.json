@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T01:55:31.918057+00:00",
+  "generated_at": "2026-08-08T06:05:50.144750+00:00",
   "raw_dir": "/Users/sanglapkundu/risk analysis/data/raw",
   "tables": {
     "application_train": {
@@ -1613,7 +1613,7 @@
         "Special": "string"
       },
       "spark_types": {
-        "": "long",
+        "col_0": "long",
         "Table": "string",
         "Row": "string",
         "Description": "string",

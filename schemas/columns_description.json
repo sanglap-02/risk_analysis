@@ -2,13 +2,15 @@
   "type": "struct",
   "fields": [
     {
-      "name": "",
+      "name": "col_0",
       "type": "long",
       "nullable": true,
       "metadata": {
         "arrow_type": "int64",
         "inferred_type": "long",
-        "type_source": "inferred"
+        "type_source": "inferred",
+        "source_column": "",
+        "renamed_reason": "empty header"
       }
     },
     {

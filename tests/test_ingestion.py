@@ -218,6 +218,59 @@ def test_struct_schema_is_spark_shaped() -> None:
     )
 
 
+def test_column_name_sanitisation() -> None:
+    """Unity Catalog rejects empty names and several characters CSVs allow.
+
+    HomeCredit_columns_description.csv ships an unnamed index column. UC refuses
+    it with: At columns.0: name "" is not a valid name.
+    """
+    section("Column name sanitisation")
+
+    check(sch.sanitise_column_name("", 0) == "col_0", "empty header becomes col_<position>")
+    check(sch.sanitise_column_name("   ", 3) == "col_3", "whitespace-only header becomes col_<position>")
+    check(sch.sanitise_column_name("My Column", 1) == "My_Column", "spaces replaced")
+    check(sch.sanitise_column_name("a.b", 1) == "a_b", "periods replaced")
+    check(sch.sanitise_column_name("a/b", 1) == "a_b", "forward slashes replaced")
+    check(sch.sanitise_column_name("SK_ID_CURR", 1) == "SK_ID_CURR", "valid names untouched")
+    check(sch.sanitise_column_name("_ingested_at", 1) == "_ingested_at", "leading underscore preserved")
+
+    # The rename must be traceable back to the source file.
+    field = sch.build_struct_field("", "int64", position=0)
+    check(field["name"] == "col_0", "renamed field carries the safe name")
+    check(field["metadata"].get("source_column") == "", "original header recorded in metadata")
+    check("renamed_reason" in field["metadata"], "reason for the rename recorded")
+
+    untouched = sch.build_struct_field("SK_ID_CURR", "int64", position=0)
+    check("source_column" not in untouched["metadata"], "unrenamed fields carry no rename metadata")
+
+    # Type overrides key off the ORIGINAL header, not the sanitised one.
+    renamed = sch.build_struct_field("AMT BALANCE", "int64", position=2)
+    check(renamed["name"] == "AMT_BALANCE", "sanitised to a valid name")
+    check(renamed["type"] == sch.DOUBLE, "prefix override still applied via the original header")
+
+
+def test_committed_schemas_are_uc_safe() -> None:
+    """Every committed schema must be a valid Unity Catalog target schema."""
+    section("Committed schemas are Unity Catalog safe")
+
+    from credit_risk.config import SCHEMA_DIR
+
+    files = sorted(Path(SCHEMA_DIR).glob("*.json"))
+    if not files:
+        check(True, "no committed schemas present; skipped")
+        return
+
+    bad: list[str] = []
+    for path in files:
+        for field in json.loads(path.read_text())["fields"]:
+            name = field["name"]
+            if not name.strip() or sch.sanitise_column_name(name, 0) != name:
+                bad.append(f"{path.stem}.{name!r}")
+
+    check(not bad, f"all {len(files)} committed schemas have UC-safe column names"
+                   + (f" -- offending: {bad[:5]}" if bad else ""))
+
+
 def test_schema_round_trip() -> None:
     section("Schema persistence round trip")
     with tempfile.TemporaryDirectory() as tmp:
@@ -526,6 +579,8 @@ def main() -> int:
     test_type_resolution()
     test_arrow_mapping()
     test_struct_schema_is_spark_shaped()
+    test_column_name_sanitisation()
+    test_committed_schemas_are_uc_safe()
     test_schema_round_trip()
     test_end_to_end()
     test_negative_paths()
