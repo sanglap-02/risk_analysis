@@ -24,7 +24,7 @@ modelling tables match published row counts exactly, 23 checks passed /
 | 1 | Ingestion → Bronze | **done** |
 | 2 | Cleaning & QA → Silver | **code complete, ready to run** |
 | 3 | Population & target definition | **code complete, ready to run** |
-| 4 | Feature engineering | next |
+| 4 | Feature engineering | **internal done; bureau next** |
 | 5 | ABT & splits | not started |
 | 6 | EDA | not started |
 | 7 | Binning, WOE, feature selection | not started |
@@ -46,7 +46,8 @@ modelling tables match published row counts exactly, 23 checks passed /
 │   ├── config.py                Every constant that governs the model
 │   ├── schemas.py               Bronze schema inference, overrides, persistence
 │   ├── cleaning.py              Bronze → silver cleaning decisions (pure Python)
-│   └── population.py            Target definition + exclusion policy (pure Python)
+│   ├── population.py            Target definition + exclusion policy (pure Python)
+│   └── features.py              Feature catalogue + window arithmetic (pure Python)
 ├── scripts/                     Local, run before touching Databricks
 │   ├── download_data.py         Fetch + extract from Kaggle
 │   ├── generate_schemas.py      Full-file type inference → schemas/*.json
@@ -55,7 +56,8 @@ modelling tables match published row counts exactly, 23 checks passed /
 │   ├── 00_config.py             Bootstrap: catalog, schemas, volume, constants
 │   ├── 01_ingest_bronze.py      Ingestion layer
 │   ├── 02_clean_silver.py       Sentinels, alignment, pooled panel
-│   └── 03_population_and_target.py  Exclusion waterfall + the label
+│   ├── 03_population_and_target.py  Exclusion waterfall + the label
+│   └── 04_features_internal.py  Internal behaviour features
 ├── schemas/                     Committed Spark schemas (build artefact)
 ├── data/
 │   ├── raw/                     Downloaded CSVs (gitignored)
