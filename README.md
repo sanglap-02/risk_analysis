@@ -14,13 +14,14 @@ internal bank account-level attributes, running on Databricks.
 
 ## Current status
 
-Data downloaded and verified 2026-08-08: 2.50 GB, all 8 modelling tables match
-published row counts exactly, 23 checks passed / 9 warnings / 0 failures.
+Data downloaded, verified and landed in Delta 2026-08-08: 2.50 GB, all 8
+modelling tables match published row counts exactly, 23 checks passed /
+9 warnings / 0 failures, 9 bronze tables live in `credit_risk.bronze`.
 
 | Phase | Description | Status |
 |---|---|---|
 | 0 | Setup & rehearsal | **done** |
-| 1 | Ingestion → Bronze | **local half done; Spark half awaiting a workspace** |
+| 1 | Ingestion → Bronze | **done** |
 | 2 | Cleaning & QA → Silver | next |
 | 3 | Population & target definition | not started |
 | 4 | Feature engineering | not started |
@@ -150,32 +151,156 @@ immediately whether it picked up the token or the JSON.
 a truncated `bureau_balance` produces a slightly optimistic bad rate rather than
 an error, which is the worst kind of defect.
 
-### 4. Databricks
+### 4. Databricks — full setup
 
-Sign up for Free Edition (no cloud account needed): <https://www.databricks.com/learn/free-edition>
-Then verify identity via LinkedIn — it raises several quota ceilings, and 2.50 GB
-needs the headroom.
+The work is split across two places, and the order matters:
 
-Clone this repo as a **Git folder** in the workspace. It must be the whole repo,
-not two imported notebooks: `00_config.py` walks up to find `src/` and `schemas/`
-and raises if they are missing.
+| Step | Where |
+|---|---|
+| 4.1 Create the workspace | Databricks web UI |
+| 4.2 Push the repo, clone as a Git folder | GitHub + web UI |
+| 4.3 Run `00_config.py` | **web UI** |
+| 4.4 Install + authenticate the CLI | **your terminal** |
+| 4.5 Upload the data | **your terminal** |
+| 4.6 Run `01_ingest_bronze.py` | **web UI** |
+| 4.7 Verify | web UI (SQL) |
 
-Run `notebooks/00_config.py` **first** — it creates the catalog, the four schemas
-and the volume, so the upload target exists. Then:
+Free Edition restricts outbound internet to a limited set of trusted domains, so
+you **cannot** download from Kaggle inside a notebook. The data has to be pushed
+up from the machine that downloaded it.
+
+---
+
+#### 4.1 Create the workspace
+
+Sign up for Free Edition — no cloud account or business email needed:
+<https://www.databricks.com/learn/free-edition>
+
+Then **verify your identity via LinkedIn** in account settings. It raises several
+quota ceilings, and 2.50 GB needs the headroom. Free Edition is serverless-only,
+one workspace, one metastore; exceeding quota shuts down your compute for the
+rest of the day.
+
+#### 4.2 Push the repo and clone it as a Git folder
+
+```bash
+git init && git add -A && git commit -m "Initial commit"
+gh repo create <your-repo-name> --private --source=. --push
+```
+
+The push is small (~100 KB) — `data/raw/` is gitignored, while `schemas/*.json`
+and `data/manifests/*.json` are tracked deliberately as the reproducibility
+record.
+
+In Databricks: **Workspace → Create → Git folder**, point it at the repo URL.
+
+> It must be the **whole repo**, not two imported notebooks. `00_config.py` walks
+> up from `notebooks/` to find `src/` and `schemas/` and raises if they are
+> missing.
+
+Whenever you push a fix from your machine, come back here and click the branch
+name → **Pull** before re-running anything.
+
+#### 4.3 Run `notebooks/00_config.py`
+
+Open it, attach to serverless, **Run All**.
+
+It creates the catalog, the four schemas and the volume — so it has to run
+*before* the upload, or there is nowhere to upload to.
+
+Expect: your repo root and `src` path → catalog and schemas created → the time
+framework and model constants printed → a final cell reporting the volume is
+empty. Empty is correct at this stage.
+
+> If it fails on `CREATE CATALOG` with a permissions error, your Free Edition
+> account may not allow new catalogs. Point `CATALOG` in `src/credit_risk/config.py`
+> at the built-in `workspace` catalog instead.
+
+#### 4.4 Install and authenticate the CLI
+
+**macOS**
+
+```bash
+brew tap databricks/tap
+brew trust databricks/tap      # Homebrew blocks third-party taps until trusted
+brew install databricks
+```
+
+**Windows**
+
+```powershell
+winget install Databricks.DatabricksCLI
+```
+
+Then authenticate. Your workspace URL is in the browser address bar:
+
+```bash
+databricks auth login --host https://dbc-xxxxxxxx-xxxx.cloud.databricks.com
+```
+
+> **Two things that trip people up here.** Do not paste a URL that already starts
+> with `https://` after the flag — `--host https://https://dbc-...` produces a
+> confusing `failed to fetch host metadata for https://https:` warning. And when
+> prompted for a profile name, press **Enter** to accept `DEFAULT`; anything else
+> has to be passed as `--profile <name>` on every later command, and an `@` in the
+> name causes quoting trouble.
+
+A browser opens for OAuth. Confirm it worked:
+
+```bash
+databricks auth profiles
+databricks fs ls dbfs:/Volumes/credit_risk/bronze/raw_files/
+```
+
+Empty output from the second command is correct — the volume exists and is
+reachable. An error means 4.3 did not complete.
+
+#### 4.5 Upload the data
 
 ```bash
 databricks fs cp --recursive data/raw dbfs:/Volumes/credit_risk/bronze/raw_files/
+databricks fs ls dbfs:/Volumes/credit_risk/bronze/raw_files/
 ```
 
-Then run `notebooks/01_ingest_bronze.py`.
+2.50 GB, so allow time. There is a UI path too (**Catalog → volume → Upload to
+this volume**), but nine files totalling 2.50 GB through a browser tab has no
+resume and no useful progress indicator.
 
-Two constraints worth knowing:
+#### 4.6 Run `notebooks/01_ingest_bronze.py`
 
-- The workspace file uploader will not handle the 358 MB `bureau_balance.csv` —
-  use the CLI.
-- Free Edition restricts outbound internet to a limited set of trusted domains,
-  so you **cannot** download from Kaggle inside a notebook. The data has to go up
-  from your machine.
+This notebook is driven by three widgets. **They only appear after the cell that
+creates them has run** — scroll to the third code cell (the one starting
+`dbutils.widgets.dropdown(...)`), run it with Shift+Enter, and a widget bar
+appears at the top of the notebook.
+
+| Widget | First run | Later runs |
+|---|---|---|
+| **Write mode** | `overwrite` | `skip_existing` to leave landed tables alone |
+| **Tables (comma-separated, blank = all)** | blank | a subset to re-do just those |
+| **Run OPTIMIZE ZORDER** | **`false`** | `true` once the data is in |
+
+Widget values are read in the same cell that creates them, so after changing them
+use **Run All** rather than resuming mid-notebook.
+
+> Leave `run_optimize` off for the first pass. `OPTIMIZE ZORDER` on the 27M-row
+> `bureau_balance` against a 2X-Small warehouse is slow enough to eat your daily
+> compute quota before the data has even landed. Get the tables in, then optimize.
+
+The notebook **raises** on a row-count mismatch or any unparseable row rather
+than letting a bad load flow into silver. If it stops partway, the tables that
+already succeeded are committed — fix the cause, pull, and re-run with
+`skip_existing`.
+
+#### 4.7 Verify
+
+```sql
+SELECT table, status, n_rows, expected_rows, row_count_ok, n_corrupt, duration_sec
+FROM credit_risk.reporting.ingestion_audit
+ORDER BY run_at DESC, table
+```
+
+Phase 1 is done when there are 9 tables, `row_count_ok` is true for the 8
+modelling tables, and `n_corrupt` is 0 or null throughout.
 
 ---
 
