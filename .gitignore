@@ -34,3 +34,9 @@ info.txt
 
 # Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+
+
+.codacy
+
+/project2
+

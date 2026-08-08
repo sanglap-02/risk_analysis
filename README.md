@@ -32,7 +32,7 @@ modelling tables match published row counts exactly, 23 checks passed /
 | 9 | Challenger GBM + SHAP | not started |
 | 10 | Validation | not started |
 | 11 | Risk buckets & strategy tree | not started |
-| 12 | Portfolio simulation | not started |
+| 12 | Loss components (LGD/EAD) + portfolio simulation | not started |
 | 13 | Monitoring & dashboard | not started |
 
 ---

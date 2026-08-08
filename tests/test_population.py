@@ -147,6 +147,62 @@ def test_drift() -> None:
     check(pop.bad_rate_drift(0.0, 0.02) == 0.0, "a zero dev rate does not divide by zero")
 
 
+def test_loss_components() -> None:
+    """Phase 12: what is modelled, what is assumed, and the caveat on each."""
+    section("Loss components (LGD / EAD)")
+
+    check(cfg.WORKOUT_WINDOW_MONTHS > 0, "a workout window is defined")
+    check(
+        cfg.MIN_WORKOUT_COVERAGE_MONTHS >= cfg.WORKOUT_WINDOW_MONTHS,
+        "eligibility requires at least as much panel as the window observes",
+    )
+
+    # The recovery distribution is what forces the two-stage design. If these
+    # measured shares ever move, the model structure needs revisiting.
+    check(
+        cfg.EXPECTED_ZERO_RECOVERY_SHARE > 0.5,
+        "measured zero-recovery mass justifies a separate stage-1 model",
+    )
+    check(
+        cfg.EXPECTED_ZERO_RECOVERY_SHARE + cfg.EXPECTED_FULL_RECOVERY_SHARE > 0.9,
+        "recovery is concentrated at the boundaries, so stage 2 must respect [0,1]",
+    )
+    check(cfg.RECOVERY_FLOOR == 0.0 and cfg.RECOVERY_CAP == 1.0, "recovery is clipped to [0,1]")
+
+    # The textbook CCF was measured and found degenerate; the constant records
+    # that so nobody silently reinstates it.
+    check(
+        cfg.EXPECTED_CCF_IN_BOUNDS_SHARE < 0.25,
+        "the classical CCF is recorded as degenerate on this data",
+    )
+    check(cfg.EAD_RATIO_CAP > 1.0, "the EAD ratio cap allows for overlimit accounts")
+
+    components = {(c.component, c.applies_to): c for c in cfg.LOSS_COMPONENTS}
+    check(len(components) == len(cfg.LOSS_COMPONENTS), "one spec per component x product")
+    for component in ("LGD", "EAD"):
+        for product in ("card", "pos"):
+            check((component, product) in components, f"{component} defined for {product}")
+
+    check(
+        components[("LGD", "card")].is_modelled and not components[("LGD", "pos")].is_modelled,
+        "LGD is modelled on card and assumed on POS",
+    )
+    check(
+        components[("EAD", "card")].is_modelled and not components[("EAD", "pos")].is_modelled,
+        "EAD is modelled on card and assumed on POS",
+    )
+
+    # Same rule as ModelSpec: nothing ships without a stated caveat.
+    check(
+        all(c.limitation for c in cfg.LOSS_COMPONENTS),
+        "every loss component records its limitation",
+    )
+    check(
+        "not economic LGD" in components[("LGD", "card")].limitation,
+        "the LGD proxy is explicitly not claimed as economic LGD",
+    )
+
+
 def test_config_alignment() -> None:
     section("Alignment with the model config")
 
@@ -172,6 +228,7 @@ def main() -> int:
     test_exclusion_steps()
     test_gate_thresholds()
     test_drift()
+    test_loss_components()
     test_config_alignment()
 
     print("\n" + "=" * 78)

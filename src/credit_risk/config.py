@@ -258,11 +258,116 @@ PSI_STABLE = 0.10
 PSI_UNUSABLE = 0.25
 
 # --------------------------------------------------------------------------- #
-# Portfolio economics (plans.md 12.1-12.2) -- illustrative, flag as assumptions
+# Loss components (plans.md Phase 12)
 # --------------------------------------------------------------------------- #
+# Fallback constants, used where a component cannot be modelled. POS accounts
+# carry no balance or credit limit, so neither LGD nor EAD is observable for
+# them and they fall back to these.
 
 LGD_UNSECURED_REVOLVING = 0.87
 CCF_REVOLVING = 0.50  # undrawn limit expected to be drawn before default
+
+# --- the workout window ---------------------------------------------------- #
+# A second time framework, distinct from the PD framework above. The default
+# month is the first month an account reaches the bad threshold; recovery is
+# observed over the following WORKOUT_WINDOW_MONTHS.
+#
+# Measured across all 1,806 ever-90+ card accounts: 90.8% have at least 12
+# months of post-default panel, so a 12-month window costs under 10% of the
+# defaulted population.
+
+WORKOUT_WINDOW_MONTHS = 12
+MIN_WORKOUT_COVERAGE_MONTHS = 12
+
+# --- LGD ------------------------------------------------------------------- #
+# recovery_rate = clip((bal_at_default - bal_after_workout) / bal_at_default, 0, 1)
+#
+# Measured on 1,624 eligible accounts:
+#     zero recovery  73.1%      any recovery  26.9%      full recovery  21.9%
+#     mean 0.248, median 0.000
+#
+# A 73% mass at zero and a 22% mass at one is why the model must be two-stage.
+# Fitted as one regression it would predict ~0.25 for nearly everybody: wrong
+# for the 73% who recover nothing and wrong for the 22% who recover everything.
+
+RECOVERY_FLOOR = 0.0
+RECOVERY_CAP = 1.0
+EXPECTED_ZERO_RECOVERY_SHARE = 0.731
+EXPECTED_FULL_RECOVERY_SHARE = 0.219
+
+# --- EAD ------------------------------------------------------------------- #
+# The textbook CCF is degenerate on this data. Measured over 1,418 defaulted
+# accounts with a computable value:
+#
+#     mean -7.22   median -0.47   within [0,1] only 12.3%
+#
+# The denominator (limit - balance) collapses toward zero for accounts already
+# near their limit -- exactly the population most likely to default -- so the
+# ratio explodes and flips sign. Model exposure directly instead:
+#
+#     ead_ratio = balance_at_default / limit_at_obs
+#
+# Bounded, stable, interpretable. The classical CCF is still computed and
+# reported as a diagnostic, with its instability shown, because demonstrating
+# that the textbook quantity was tried and found degenerate is a stronger
+# result than quietly presenting a winsorised version of it.
+
+EAD_RATIO_CAP = 1.5  # overlimit accounts can exceed 1.0; cap well above it
+CCF_DIAGNOSTIC_BOUNDS = (0.0, 1.0)
+EXPECTED_CCF_IN_BOUNDS_SHARE = 0.123
+
+
+@dataclass(frozen=True)
+class LossComponentSpec:
+    """How one loss component is obtained, and what that costs in credibility."""
+
+    component: str  # "LGD" | "EAD"
+    method: str
+    is_modelled: bool
+    applies_to: str
+    limitation: str  # required -- no component ships without a stated caveat
+
+
+LOSS_COMPONENTS: tuple[LossComponentSpec, ...] = (
+    LossComponentSpec(
+        component="LGD",
+        method="Two-stage: logistic P(recovery>0), then fractional logit E[recovery | >0]",
+        is_modelled=True,
+        applies_to="card",
+        limitation=(
+            "A balance-reduction proxy, not economic LGD. It captures neither "
+            "collections costs, the time value of delayed recovery, debt sale "
+            "proceeds, nor the difference between genuine repayment and a "
+            "write-off that removes the balance. Home Credit ships none of "
+            "those. Directionally meaningful; not Basel-compliant."
+        ),
+    ),
+    LossComponentSpec(
+        component="LGD",
+        method=f"Assumed constant {LGD_UNSECURED_REVOLVING}",
+        is_modelled=False,
+        applies_to="pos",
+        limitation="POS accounts carry no balance column, so recovery is unobservable.",
+    ),
+    LossComponentSpec(
+        component="EAD",
+        method="Fractional logit on ead_ratio = balance_at_default / limit_at_obs",
+        is_modelled=True,
+        applies_to="card",
+        limitation=(
+            "Departs from the textbook CCF form, which is degenerate here "
+            "(12.3% of values within [0,1]). The classical CCF is reported "
+            "alongside as a diagnostic so the departure is visible, not hidden."
+        ),
+    ),
+    LossComponentSpec(
+        component="EAD",
+        method=f"Assumed CCF {CCF_REVOLVING} on outstanding principal",
+        is_modelled=False,
+        applies_to="pos",
+        limitation="POS accounts carry no credit limit, so there is no undrawn amount to convert.",
+    ),
+)
 
 # --------------------------------------------------------------------------- #
 # Splits (plans.md Phase 5)

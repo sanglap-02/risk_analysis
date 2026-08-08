@@ -864,20 +864,132 @@ Document these as a separate, ordered rule set. In production, policy rules alwa
 
 ---
 
-### Phase 12 — Portfolio Simulation
+### Phase 12 — Loss Components & Portfolio Simulation
 
 This is the layer that produces a business answer, and it should **feed** the cut-off decision, not follow it.
 
-**12.1 Expected loss**
+**Revised 2026-08-09.** The original draft treated LGD and EAD as stated constants. They are now **modelled from observed data** wherever the data supports it. The change was prompted by [levist7/Credit_Risk_Modelling](https://github.com/levist7/Credit_Risk_Modelling), which models all three components rather than assuming two of them — a genuinely better approach, and one worth adopting.
+
+The scoping below is ours, because Home Credit ships no recovery, collections or charge-off tables. What follows is what is *actually* observable, measured before being written down.
+
+---
+
+**12.1 The workout window**
+
+Modelling loss needs a second time framework, distinct from the PD framework in §1.3:
+
+```
+  ◄─ observation ─►│◄── performance ──►│◄──── workout (12m) ────►
+                   │                   │
+              obs point            DEFAULT MONTH          recovery observed
+                                   (first 90+ DPD)         up to here
+```
+
+- **Default month** — the first month an account reaches 90+ DPD
+- **Workout window** — 12 months after the default month, where recovery is observed
+- **Eligibility** — the account must have ≥12 months of panel after its default month
+
+**Measured feasibility** across all 1,806 ever-90+ card accounts:
+
+| Post-default coverage available | Accounts | Share |
+|---|---|---|
+| ≥3 months | 1,753 | 97.1% |
+| ≥6 months | 1,709 | 94.6% |
+| **≥12 months** | **1,639** | **90.8%** |
+
+Losing under 10% to the coverage requirement makes a 12-month workout window comfortably viable.
+
+---
+
+**12.2 LGD — two-stage, and why**
+
+`LGD = 1 − recovery rate`. Our recovery is a **balance-reduction proxy**:
+
+```
+recovery_rate = clip( (balance_at_default − balance_after_workout) / balance_at_default , 0, 1 )
+```
+
+Measured on 1,624 eligible accounts:
+
+| | Share |
+|---|---|
+| Zero recovery | **73.1%** |
+| Any recovery (>0) | 26.9% |
+| **Full recovery (=1)** | **21.9%** |
+
+Mean 0.248, median 0.000.
+
+**This distribution is why the model must be two-stage.** It has a 73% point mass at zero and a 22% point mass at one — it is not remotely continuous, and a single regression fitted to it would predict a nonsense ~0.25 for nearly everybody, wrong for the 73% who recover nothing and wrong for the 22% who recover everything.
+
+```
+Stage 1   Logistic:  P(recovery > 0)                    -- will anything come back?
+Stage 2   Fractional logit:  E[recovery | recovery > 0]  -- how much, given some does?
+
+LGD = 1 − ( P(recovery > 0) × E[recovery | recovery > 0] )
+```
+
+**Stage 2 uses a fractional logit, not OLS.** The reference project describes beta regression in its README but implements linear regression in the notebook. With 22% of the target sitting at exactly 1.0, a linear model predicts outside [0,1] for a large minority — a recovery rate of 1.3 is not a rounding problem, it is a negative loss. A GLM with a binomial family and logit link handles a continuous [0,1] target with boundary mass correctly.
+
+> **Stated limitation, for the model document.** This is a *balance-reduction* proxy, not economic LGD. It does not capture collections costs, the time value of delayed recovery, debt sale proceeds, or the distinction between genuine repayment and a write-off that removes the balance. Home Credit ships none of those. The proxy is directionally meaningful and must not be presented as a Basel-compliant LGD.
+
+---
+
+**12.3 EAD — model utilisation at default, not CCF**
+
+The textbook formulation is:
+
+```
+EAD = balance_at_obs + CCF × (limit_at_obs − balance_at_obs)
+CCF = (balance_at_default − balance_at_obs) / (limit_at_obs − balance_at_obs)
+```
+
+**Measured, this is unusable on our data.** Across 1,418 defaulted accounts with a computable CCF:
+
+| Statistic | Value |
+|---|---|
+| Mean | −7.22 |
+| Median | −0.47 |
+| 5th / 95th percentile | −17.66 / 0.00 |
+| **Within [0, 1]** | **12.3%** |
+
+The denominator `limit − balance` collapses toward zero for accounts already near their limit at observation — which is precisely the population most likely to default — so the ratio explodes and flips sign. Winsorising to [0,1] would discard the real signal for 88% of cases and keep a number that no longer means anything.
+
+**So model the exposure directly instead:**
+
+```
+ead_ratio = balance_at_default / limit_at_obs          -- bounded, stable, interpretable
+EAD       = ead_ratio × limit_at_obs
+```
+
+Fit with a fractional logit on `ead_ratio` (it is a bounded proportion, occasionally exceeding 1 for overlimit accounts, so allow a modest cap above 1 rather than at 1).
+
+Report the classical CCF alongside as a **diagnostic**, with its instability shown. Demonstrating that you computed the textbook quantity, found it degenerate, and moved to something defensible is a stronger result than quietly presenting a winsorised CCF.
+
+---
+
+**12.4 What is modelled versus assumed**
+
+Honesty here is the whole point:
+
+| Component | Card accounts | POS accounts |
+|---|---|---|
+| **PD** | Modelled (Phases 7–9) | Modelled |
+| **LGD** | Modelled — two-stage on the recovery proxy | **Assumed** — no balance/limit columns |
+| **EAD** | Modelled — `ead_ratio` on limit | **Assumed** — outstanding principal |
+
+POS accounts carry no balance or credit limit, so neither component is observable for them. They fall back to stated constants, flagged per row. Every table carries an `is_modelled` column so no downstream chart can silently mix the two.
+
+---
+
+**12.5 Expected loss**
 ```
 EL = PD × LGD × EAD
-
-PD  = calibrated model output
-LGD = 0.85 – 0.90 for unsecured revolving credit (state your assumption)
-EAD = current balance + CCF × undrawn limit,  CCF ≈ 0.5 for revolving
 ```
+with PD from the calibrated scorecard, and LGD/EAD from §12.2–12.3 where modelled and from constants otherwise.
 
-**12.2 Unit economics per account**
+Report EL two ways — fully modelled, and with the original flat assumptions (`LGD = 0.87`, `CCF = 0.50`) — and show the difference by risk bucket. If modelling the components does not change the cut-off decision, that is worth knowing and worth saying.
+
+**12.6 Unit economics per account**
 ```
 Revenue     = interest margin × avg balance + interchange × annual spend
 Cost        = funding cost × avg balance + servicing cost + acquisition amortisation
@@ -886,7 +998,7 @@ Contribution  = Revenue - Cost - Expected loss
 ```
 State every assumption in a single parameters block and make them widget-driven so a reviewer can flex them.
 
-**12.3 Cut-off selection**
+**12.7 Cut-off selection**
 
 For each candidate score cut-off, compute:
 - Approval / line-increase rate
@@ -898,7 +1010,7 @@ For each candidate score cut-off, compute:
 
 Plot **approval rate vs bad rate** and **net contribution vs cut-off**. The optimal cut-off is where net contribution peaks — which is almost never the point where bad rate is minimised. Making that trade-off explicit is the entire point of the exercise.
 
-**12.4 Swap-set analysis**
+**12.8 Swap-set analysis**
 
 Compare the new strategy against the incumbent (for this project: a simple utilisation-and-DPD rule, or the raw external score used alone).
 
@@ -909,7 +1021,7 @@ Compare the new strategy against the incumbent (for this project: a simple utili
 
 The comparison of swap-in bad rate vs swap-out bad rate is the single most persuasive number you can put in front of a credit committee. If swap-ins are cleaner than swap-outs, the new strategy is strictly better at constant volume. Lead with this.
 
-**12.5 Scenario / stress testing**
+**12.9 Scenario / stress testing**
 
 Rerun the simulation with PD uplifted by 1.5× and 2× (proxying a recession) and report how each risk bucket's contribution behaves. Buckets that flip negative under stress are your concentration risk.
 
@@ -950,7 +1062,7 @@ The SR 11-7 supervisory guidance is the reference framework for what this docume
 | **3** | 4, 5, 6 | Feature Store populated, ABT built with train/test/OOT, EDA complete with directional checks |
 | **4** | 7, 8, 9 | Binning and IV screening done. Champion scorecard scaled to points. Challenger GBM with SHAP |
 | **5** | 10, 11 | Validation pack passed on OOT. Risk buckets set. Strategy tree built and rule table exported |
-| **6** | 12, 13 | Portfolio simulation, cut-off chosen, swap-set analysis. Dashboard live. Model doc complete |
+| **6** | 12, 13 | LGD/EAD models, portfolio simulation, cut-off chosen, swap-set analysis. Dashboard live. Model doc complete |
 
 Weeks 2 and 5 are the ones that slip. Week 2 because target definition surfaces data problems that force you back to Phase 2. Week 5 because failing an OOT acceptance criterion sends you back to Phase 7. Budget for both.
 
