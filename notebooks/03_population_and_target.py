@@ -191,43 +191,73 @@ def waterfall_steps(cohort):
 
 
 def apply_waterfall(df: DataFrame, cohort) -> tuple[DataFrame, list[dict]]:
-    """Filter step by step, recording the count dropped at each one."""
-    df = df.cache()
-    remaining = df
-    n_in = remaining.count()
+    """Filter step by step, recording the count dropped at each one.
 
+    Implemented as a single cumulative pass rather than an iterative
+    filter-and-count. Two reasons:
+
+    1. Serverless compute rejects `.cache()` (PERSIST TABLE is not supported),
+       and without caching an iterative version would re-read and re-aggregate
+       the 13.8M-row panel once per step.
+    2. It is simply better. One Spark action produces every count, instead of
+       one action per step per cohort.
+
+    Each step gets a cumulative boolean: "passed this step and every step before
+    it". Summing those gives the survivor count at each stage, and consecutive
+    differences give what each step dropped.
+    """
+    steps = waterfall_steps(cohort)
+
+    cumulative = F.lit(True)
+    flag_names = []
+    flagged = df
+    for i, (_, _, condition) in enumerate(steps, start=1):
+        cumulative = cumulative & condition
+        name = f"_passed_{i}"
+        flagged = flagged.withColumn(name, cumulative)
+        flag_names.append(name)
+
+    counts = flagged.agg(
+        F.count("*").alias("n_start"),
+        *[F.sum(F.col(n).cast("long")).alias(n) for n in flag_names],
+    ).collect()[0]
+
+    n_start = counts["n_start"]
     rows = [
         {
             "cohort": cohort.name,
             "step": 0,
             "name": "starting population (all accounts in the pooled panel)",
             "kind": "start",
-            "n_in": n_in,
+            "n_in": n_start,
             "n_dropped": 0,
-            "n_out": n_in,
+            "n_out": n_start,
             "pct_dropped": 0.0,
         }
     ]
 
-    for i, (name, kind, condition) in enumerate(waterfall_steps(cohort), start=1):
-        before = n_in
-        remaining = remaining.filter(condition).cache()
-        n_in = remaining.count()
-        dropped = before - n_in
+    previous = n_start
+    for i, (name, kind, _) in enumerate(steps, start=1):
+        # A cumulative flag is NULL only if every row failed an earlier step.
+        surviving = counts[f"_passed_{i}"] or 0
+        dropped = previous - surviving
         rows.append(
             {
                 "cohort": cohort.name,
                 "step": i,
                 "name": name,
                 "kind": kind,
-                "n_in": before,
+                "n_in": previous,
                 "n_dropped": dropped,
-                "n_out": n_in,
-                "pct_dropped": round(dropped / before, 6) if before else 0.0,
+                "n_out": surviving,
+                "pct_dropped": round(dropped / previous, 6) if previous else 0.0,
             }
         )
+        previous = surviving
 
-    return remaining, rows
+    # The eligible set is the final cumulative condition, applied once.
+    eligible = flagged.filter(F.col(flag_names[-1])).drop(*flag_names)
+    return eligible, rows
 
 
 # COMMAND ----------
