@@ -40,3 +40,8 @@ info.txt
 
 /project2
 
+
+# Lending Club rehearsal data (regenerate with lc/steps/01_download.py,
+# or attach the Kaggle dataset when running there)
+lc/data/raw/
+lc/data/artifacts/
