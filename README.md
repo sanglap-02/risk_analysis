@@ -274,9 +274,27 @@ databricks fs cp --recursive data/raw dbfs:/Volumes/credit_risk/bronze/raw_files
 databricks fs ls dbfs:/Volumes/credit_risk/bronze/raw_files/
 ```
 
-2.50 GB, so allow time. There is a UI path too (**Catalog → volume → Upload to
-this volume**), but nine files totalling 2.50 GB through a browser tab has no
-resume and no useful progress indicator.
+2.50 GB, so allow time.
+
+**Or upload through the UI**, which works fine here: **Catalog → `credit_risk` →
+`bronze` → Volumes → `raw_files` → Upload to this volume**. The UI limit is 5 GB
+*per file*, and our largest is `installments_payments.csv` at 690 MB, so every
+file qualifies.
+
+Either way the volume must already exist — `00_config.py` creates it, so run
+that first.
+
+The CLI is still the better default for the full set: a browser upload has no
+resume, so a dropped connection means redoing whatever was in flight. If you do
+use the UI, go in batches and start with the two smallest files
+(`HomeCredit_columns_description.csv`, `application_test.csv`) to confirm the
+path before committing to the large ones.
+
+Verify what landed either way:
+
+```sql
+LIST '/Volumes/credit_risk/bronze/raw_files'
+```
 
 #### 4.6 Run `notebooks/01_ingest_bronze.py`
 
